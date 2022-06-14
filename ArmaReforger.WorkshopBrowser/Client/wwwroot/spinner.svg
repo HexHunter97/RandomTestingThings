@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="802.395 51.82 185.771 948.17" width="185.771" height="948.17"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:cc="http://creativecommons.org/ns#"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<g id="layer1" transform="matrix(0.994438, 0, 0, 1.00005, 582.309937, 876.203857)">
+		<path id="rect2384" style="opacity:0.986;fill:#eeeeee" d="M 254.156 -611.69 L 254.156 -609.44 L 254.156 -475.12 C 249.256 -460.76 243.656 -444.83 238.066 -429.16 C 232.586 -413.82 227.146 -398.79 222.436 -385.84 L 222.436 -385.78 L 222.436 -383.53 L 222.436 54.59 L 222.436 56.844 L 224.686 56.844 L 261.096 56.844 L 224.376 56.875 L 236.656 71.062 L 236.656 87 L 223.566 87 L 221.316 87 L 221.316 89.25 L 221.316 111.72 L 221.316 113.97 L 222.596 113.97 L 222.536 114.06 L 237.756 123.44 L 238.286 123.78 L 238.876 123.78 L 389.156 123.78 L 389.756 123.78 L 390.216 123.47 L 405.876 114.44 L 405.596 113.97 L 406.996 113.97 L 406.996 111.72 L 406.996 89.25 L 406.996 87 L 404.756 87 L 392.126 87 L 392.126 70.844 L 392.126 70.594 L 407.786 56.844 L 408.126 56.844 L 408.126 54.594 L 408.126 -383.526 L 408.126 -385.776 C 398.466 -412.376 385.686 -447.766 375.936 -476.436 L 375.936 -609.436 L 375.936 -611.686 L 373.686 -611.686 L 256.406 -611.686 L 254.156 -611.686 L 254.156 -611.69 Z"/>
+		<path id="path3174" style="fill-rule:evenodd;fill:#dddddd" d="M 316.036 -824.34 C 315.566 -824.34 315.096 -824.3 314.626 -824.25 C 309.166 -823.64 303.856 -819.85 298.846 -812.88 C 293.836 -805.9 288.996 -795.65 284.536 -781.5 C 275.606 -753.19 268.136 -709.22 264.346 -644.88 C 263.716 -634.24 264.566 -623.07 264.256 -611.69 L 367.436 -611.69 C 367.466 -622.76 367.806 -634.22 367.436 -645.56 C 365.876 -693.47 359.596 -738.44 350.466 -771.25 C 345.906 -787.66 340.646 -801.05 334.786 -810.31 C 331.856 -814.95 328.786 -818.56 325.436 -821 C 322.926 -822.83 320.226 -824 317.436 -824.28 C 316.976 -824.33 316.506 -824.35 316.036 -824.34 Z"/>
+	</g>
+	<metadata>
+		<rdf:RDF>
+			<cc:Work>
+				<dc:format>image/svg+xml</dc:format>
+				<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+				<cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+				<dc:publisher>
+					<cc:Agent rdf:about="http://openclipart.org/">
+						<dc:title>Openclipart</dc:title>
+					</cc:Agent>
+				</dc:publisher>
+				<dc:title>Bullet silhouettes</dc:title>
+				<dc:date>2010-01-24T23:01:59</dc:date>
+				<dc:description/>
+				<dc:source>https://openclipart.org/detail/29029/bullet-silhouettes-by-qubodup</dc:source>
+				<dc:creator>
+					<cc:Agent>
+						<dc:title>qubodup</dc:title>
+					</cc:Agent>
+				</dc:creator>
+				<dc:subject>
+					<rdf:Bag>
+						<rdf:li>bullet</rdf:li>
+						<rdf:li>grenade</rdf:li>
+						<rdf:li>gun</rdf:li>
+						<rdf:li>shell</rdf:li>
+						<rdf:li>unchecked</rdf:li>
+					</rdf:Bag>
+				</dc:subject>
+			</cc:Work>
+			<cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+				<cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+				<cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+				<cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+			</cc:License>
+		</rdf:RDF>
+	</metadata>
+</svg>

@@ -1,0 +1,44 @@
+﻿@using ArmaReforger.WorkshopBrowser.Client.Dtos
+
+@* TODO: implement layout:
+    TITLE               
+    -------------------------
+    Description         IMAGE
+*@
+
+
+<CenterColumn>
+    <MudCard Elevation="0" Class="mud-primary">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">
+                    @Asset.Name
+                </MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent Class="d-flex flex-column-reverse flex-sm-row justify-space-between">
+            <MudText Class="align-self-start">@Asset.Summary</MudText>
+            <MudImage Src="@_assetThumbnailUrl" Alt="@($"Thumbnail for {Asset.Name}")"/>
+        </MudCardContent>
+    </MudCard>
+</CenterColumn>
+
+@code 
+{
+    [Parameter]
+    public Asset Asset { get; set; } = default!;
+
+    public string? _assetThumbnailUrl;
+
+    protected override void OnParametersSet()
+    {
+        if (Asset is null)
+        {
+            throw new ArgumentNullException(nameof(Asset));
+        }
+
+        _assetThumbnailUrl = Asset.Previews.First().Thumbnails.Images.Last().Url;
+
+        base.OnParametersSet();
+    }
+}

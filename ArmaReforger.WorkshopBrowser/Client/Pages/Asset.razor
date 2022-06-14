@@ -1,0 +1,10 @@
+@page "/asset/{assetId}"
+
+@* TODO: implement a proper Asset page *@
+<h1>Asset id @AssetId</h1>
+
+@code
+{
+    [Parameter]
+    public string AssetId { get; set; } = default!;
+}

@@ -1,0 +1,92 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="_darkMode" Theme="CustomTheme"/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" OnClick="ToggleMenu" Edge="Edge.Start" Color="Color.Tertiary"/>
+        <MudSpacer/>
+        @* tiny phone, displays without wrap until ~425px * @
+        <MudText Typo="Typo.h6" Style="text-align: center" Class="d-inline d-sm-none">
+            @_appbarText
+        </MudText>
+        @* average phone, never wraps, but would wrap at h4 * @
+        <MudText Typo="Typo.h5" Style="text-align: center" Class="d-none d-sm-inline d-md-none">
+            @_appbarText
+        </MudText>
+        *@
+        <MudText Typo="Typo.h3" Class="d-none d-md-inline">
+            @_appbarText
+        </MudText>
+        <MudSpacer/>
+        <MudIconButton Icon="@Icons.Material.Filled.Contrast" OnClick="ToggleDarkMode" Edge="Edge.End" Color="Color.Tertiary"/>
+    </MudAppBar>
+
+    <MudDrawer ClipMode="DrawerClipMode.Always" Anchor="Anchor.Left" Variant="DrawerVariant.Temporary" @bind-Open="_menuOpen">
+        @* TODO: add persistent filter/search selectors here *@
+    </MudDrawer>
+    
+    <MudMainContent Class="mt-3">
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code
+{
+    private bool _darkMode;
+    private bool _menuOpen;
+    private MudThemeProvider _mudThemeProvider = default!;
+    private readonly MudTheme CustomTheme = GetTheme();
+    private string _appbarText = "ARMA Reforger Workshop Browser";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _darkMode = await _mudThemeProvider.GetSystemPreference();
+            StateHasChanged();
+        }
+    }
+
+    private void ToggleMenu() => _menuOpen ^= true; 
+    private void ToggleDarkMode() => _darkMode ^= true;
+
+    private static MudTheme GetTheme()
+    {
+        return new MudTheme()
+        {
+            Palette = new Palette()
+            {
+                Primary = Colors.Grey.Lighten3,
+                Secondary = Colors.Grey.Lighten2,
+                Tertiary = Colors.Grey.Darken3,
+
+                Background = Colors.Grey.Lighten5,
+                AppbarBackground = Colors.Grey.Lighten4,
+                DrawerBackground = Colors.Grey.Lighten4,
+
+                TextPrimary = Colors.Grey.Darken4,
+                TextSecondary = Colors.Grey.Darken2,
+                AppbarText = Colors.Grey.Darken1,
+                DrawerText = Colors.Grey.Darken4
+            },
+            PaletteDark = new Palette()
+            {
+                Primary = Colors.Grey.Darken2,
+                Secondary = Colors.Grey.Darken1,
+                Tertiary = Colors.Grey.Lighten3,
+
+                Background = Colors.Grey.Darken4,
+                AppbarBackground = Colors.Grey.Darken3,
+                DrawerBackground = Colors.Grey.Darken3,
+
+                TextPrimary = Colors.Grey.Lighten5,
+                TextSecondary = Colors.Grey.Lighten3,
+                AppbarText = Colors.Grey.Lighten2,
+                DrawerText = Colors.Grey.Lighten5
+            }
+        };
+    }
+}

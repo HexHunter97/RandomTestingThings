@@ -1,0 +1,13 @@
+﻿<MudGrid>
+    <MudItem xs="0" md="2"/>
+    <MudItem xs="12" md="8">
+        @ChildContent
+    </MudItem>
+    <MudItem xs="0" md="2"/>
+</MudGrid>
+
+@code
+{
+    [Parameter] 
+    public RenderFragment ChildContent { get; set; } = default!;
+}
