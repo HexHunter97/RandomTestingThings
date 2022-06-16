@@ -26,10 +26,6 @@ jobs:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch' 
     runs-on: self-hosted
     steps:
-    - name: 'checkout'
-      uses: actions/checkout@v2.4.2
-      with:
-        fetch-depth: '0'
     - if: github.event.inputs.version_number != ''
       name: 'manual version'
       uses: anothrNick/github-tag-action@master
