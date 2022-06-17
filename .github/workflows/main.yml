@@ -1,0 +1,39 @@
+name: Deploy
+
+on:
+  pull_request_target:
+    types:
+      - closed
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      version_number:
+        description: 'Version number for the release'
+        required: false
+        default: ''
+
+jobs:
+  pull:
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2.4.2
+    
+  bumpVersion:
+    needs: pull
+    runs-on: self-hosted
+    steps:
+    - if: github.event.inputs.version_number != ''
+      name: 'Manual version'
+      uses: mathieudutour/github-tag-action@v6.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        custom_tag: ${{ github.event.inputs.version_number }}
+        tag_prefix: ''
+    - if: github.event.inputs.version_number == ''
+      name: 'Automatic version'
+      uses: mathieudutour/github-tag-action@v6.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        tag_prefix: ''
