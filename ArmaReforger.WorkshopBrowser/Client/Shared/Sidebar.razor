@@ -1,0 +1,18 @@
+﻿<MudDrawer ClipMode="DrawerClipMode.Always" Anchor="Anchor.Left" Variant="DrawerVariant.Temporary" @bind-Open="BoundOpen">
+    @* TODO: add persistent filter/search selectors here *@
+</MudDrawer>
+
+@code
+{
+    [Parameter]
+    public bool Open { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> OpenChanged { get; set; }
+
+    private bool BoundOpen
+    {
+        get => Open;
+        set => OpenChanged.InvokeAsync(value);
+    }
+}

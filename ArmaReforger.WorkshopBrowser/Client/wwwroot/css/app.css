@@ -32,6 +32,16 @@
     height: 100vh
 }
 
+.footer.mud-paper {
+    color: var(--mud-palette-appbar-text);
+    background-color: var(--mud-palette-appbar-background);
+}
+
+.mud-chip.mud-chip-no-transition {
+    transition-property: none;
+    pointer-events: none;
+}
+
 /* TODO: resize from h3 to h6 progressively when wrapping would occur! */
 /* h3 */
 #appbar-title {

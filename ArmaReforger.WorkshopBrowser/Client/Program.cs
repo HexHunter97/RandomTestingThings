@@ -2,6 +2,7 @@ using ArmaReforger.WorkshopBrowser.Client.Interfaces;
 using ArmaReforger.WorkshopBrowser.Client.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
 using System;
@@ -14,6 +15,9 @@ namespace ArmaReforger.WorkshopBrowser.Client
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+            Helpers.Version = builder.Configuration.GetValue<string>("version");
+            
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 

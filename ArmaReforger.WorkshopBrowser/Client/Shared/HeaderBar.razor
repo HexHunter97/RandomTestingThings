@@ -1,0 +1,18 @@
+﻿<MudAppBar Class="mb-1 mb-md-3">
+    <MudIconButton Icon="@Icons.Material.Filled.Menu" OnClick="@ToggleMenu" Edge="Edge.Start" Color="Color.Tertiary"/>
+    <MudSpacer/>
+    <MudText Typo="Typo.h3">
+        ARMA Reforger Workshop Browser
+    </MudText>
+    <MudSpacer/>
+    <MudIconButton Icon="@Icons.Material.Filled.Contrast" OnClick="@ToggleDarkMode" Edge="Edge.End" Color="Color.Tertiary"/>
+</MudAppBar>
+
+@code 
+{
+    [Parameter]
+    public EventCallback<MouseEventArgs> ToggleMenu { get; set; }
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> ToggleDarkMode { get; set; }
+}

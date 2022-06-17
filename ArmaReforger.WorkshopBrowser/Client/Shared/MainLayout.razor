@@ -5,32 +5,12 @@
 <MudSnackbarProvider/>
 
 <MudLayout>
-    <MudAppBar>
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" OnClick="ToggleMenu" Edge="Edge.Start" Color="Color.Tertiary"/>
-        <MudSpacer/>
-        @* tiny phone, displays without wrap until ~425px * @
-        <MudText Typo="Typo.h6" Style="text-align: center" Class="d-inline d-sm-none">
-            @_appbarText
-        </MudText>
-        @* average phone, never wraps, but would wrap at h4 * @
-        <MudText Typo="Typo.h5" Style="text-align: center" Class="d-none d-sm-inline d-md-none">
-            @_appbarText
-        </MudText>
-        *@
-        <MudText Typo="Typo.h3" Class="d-none d-md-inline">
-            @_appbarText
-        </MudText>
-        <MudSpacer/>
-        <MudIconButton Icon="@Icons.Material.Filled.Contrast" OnClick="ToggleDarkMode" Edge="Edge.End" Color="Color.Tertiary"/>
-    </MudAppBar>
-
-    <MudDrawer ClipMode="DrawerClipMode.Always" Anchor="Anchor.Left" Variant="DrawerVariant.Temporary" @bind-Open="_menuOpen">
-        @* TODO: add persistent filter/search selectors here *@
-    </MudDrawer>
-    
-    <MudMainContent Class="mt-3">
+    <HeaderBar ToggleMenu="@ToggleMenu" ToggleDarkMode="@ToggleDarkMode"/>
+    <Sidebar @bind-Open="_menuOpen"/>
+    <MudMainContent>
         @Body
     </MudMainContent>
+    <FooterBar/>
 </MudLayout>
 
 @code
@@ -39,7 +19,6 @@
     private bool _menuOpen;
     private MudThemeProvider _mudThemeProvider = default!;
     private readonly MudTheme CustomTheme = GetTheme();
-    private string _appbarText = "ARMA Reforger Workshop Browser";
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {

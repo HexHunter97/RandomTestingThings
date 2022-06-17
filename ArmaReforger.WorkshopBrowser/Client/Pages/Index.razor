@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 @using ArmaReforger.WorkshopBrowser.Client.Interfaces
 @using ArmaReforger.WorkshopBrowser.Client.Dtos
 @using ArmaReforger.WorkshopBrowser.Client.Models
@@ -12,7 +12,7 @@
 else
 {
     <CenterColumn>
-        <MudChip Color="Color.Primary" Style="transition-property: none; pointer-events: none;">
+        <MudChip Color="Color.Primary" Class="mud-chip-no-transition">
             <MudText Typo="Typo.h6" Class="mud-text-primary">
                 All mods: @Assets.Count
             </MudText>
