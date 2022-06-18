@@ -25,6 +25,7 @@ jobs:
     runs-on: self-hosted
     steps:
     - if: github.event.inputs.version_number != ''
+      id: manualVersion
       name: 'Manual version'
       uses: mathieudutour/github-tag-action@v6.0
       with:
@@ -32,8 +33,24 @@ jobs:
         custom_tag: ${{ github.event.inputs.version_number }}
         tag_prefix: ''
     - if: github.event.inputs.version_number == ''
+      id: autoVersion
       name: 'Automatic version'
       uses: mathieudutour/github-tag-action@v6.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         tag_prefix: ''
+    - name: 'Update appsettings.json with version'
+      run: "sed -ir 's/^  \"version\": \"local\"/  \"version\": \"${{ steps.autoVersion.outputs.new_tag || steps.manualVersion.outputs.new_tag }}\"/' ArmaReforger.WorkshopBrowser/Client/wwwroot/appsettings.json"
+  
+  build:
+    needs: bumpVersion
+    runs-on: self-hosted
+    steps:
+    - run: docker build -f Dockerfile . -t workshopbrowser:${{ jobs.bumpVersion.steps.autoVersion.outputs.new_tag || jobs.bumpVersion.steps.manualVersion.outputs.new_tag }}
+  
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+    - run: echo "TODO"
+    # add image to kube!
