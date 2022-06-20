@@ -11,8 +11,6 @@ namespace ArmaReforger.WorkshopBrowser.Server
             // Add services to the container.
             builder.Services.AddLogging();
             builder.Services.AddHttpForwarder();
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddRazorPages();
             builder.Services.AddCors(
                 options =>
                 {
@@ -43,10 +41,7 @@ namespace ArmaReforger.WorkshopBrowser.Server
             app.UseBlazorFrameworkFiles();
             app.UseStaticFiles();
 
-            app.UseRouting();
             app.UseCors();
-            app.MapRazorPages();
-            app.MapControllers();
             app.MapFallbackToFile("index.html");
 
             await app.RunAsync();

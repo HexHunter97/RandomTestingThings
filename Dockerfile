@@ -1,8 +1,3 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-bullseye-slim AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 433
-
 #restore all projects
 FROM mcr.microsoft.com/dotnet/sdk:6.0-bullseye-slim AS build
 WORKDIR /src
@@ -24,10 +19,11 @@ RUN dotnet build -c Release -o /app
 WORKDIR /src/ArmaReforger.WorkshopBrowser/Server/
 RUN dotnet build -c Release -o /app
 
-FROM build AS publish
 RUN dotnet publish -c Release -o /app
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-bullseye-slim as app
+EXPOSE 80
+EXPOSE 433
 WORKDIR /app
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "ArmaReforger.WorkshopBrowser.Server.dll"]
