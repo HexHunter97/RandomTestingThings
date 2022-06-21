@@ -4,11 +4,7 @@
 # - if latest, add tag
 # - set version in appsettings.json
 # - build docker image
-# - update kubernetes deployment
-
-# TODO:
-# - check registry if exists
-# - if exists, go to deploy
+# - hand over execution to DeployImage.yml
 
 name: Deploy
 
@@ -26,32 +22,11 @@ on:
         default: ''
 
 jobs:
-  checkTag:
-    if: ${{ github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch' }}
-    name: Tag check
-    runs-on: self-hosted
-    steps:
-    - uses: mukunku/tag-exists-action@v1.0.0
-      id: checkTag
-      with: 
-        tag: ${{ github.event.inputs.version_number }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    outputs:
-      existingVersion: ${{ steps.checkTag.outputs.exists }}
-
   pull:
-    needs: checkTag
     name: Pull repository
     runs-on: self-hosted
     steps:
-    - if: ${{ !!needs.checkTag.outputs.existingVersion }}
-      name: Checkout with version
-      uses: actions/checkout@v2.4.2
-      with:
-        ref: refs/tags/${{ github.event.inputs.version_number }}
-    - if: ${{ !needs.checkTag.outputs.existingVersion }}
-      name: Checkout without version
+    - name: Checkout
       uses: actions/checkout@v2.4.2
         
   bumpVersion:
@@ -59,7 +34,7 @@ jobs:
     name: Bump version
     runs-on: self-hosted
     steps:
-    - if: ${{ github.event.inputs.version_number != '' && needs.checkTag.outputs.existingVersion }}
+    - if: ${{ github.event.inputs.version_number != '' }}
       id: manualVersion
       name: Manual version
       uses: mathieudutour/github-tag-action@v6.0
@@ -75,7 +50,7 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         tag_prefix: ''
         default_prerelease_bump: prepatch
-        append_to_pre_release_tag: false
+        append_to_pre_release_tag: 'false'
     outputs:
       version: ${{ steps.autoVersion.outputs.new_tag || steps.manualVersion.outputs.new_tag }}
 
@@ -92,12 +67,21 @@ jobs:
     name: Build image
     runs-on: self-hosted
     steps:
-    - run: docker build -f Dockerfile . -t workshopbrowser:${{ needs.bumpVersion.outputs.version }}
+    - run: |
+        "echo ${{ needs.bumpVersion.outputs.version }}"
+        "docker build -f Dockerfile . -t workshopbrowser:${{ needs.bumpVersion.outputs.version }}"
+        "docker save workshopbrowser:${{ needs.bumpVersion.outputs.version }} -o workshopbrowser.tar"
+        "microk8s ctr image import workshopbrowser.tar"
+        "rm workshopbrowser.tar"
+        "docker image prune -f"
+        "docker rmi -f $(docker images workshopbrowser -q)"
   
   deploy:
     needs: build
-    name: Deploy
+    name: Deploy image
     runs-on: self-hosted
     steps:
-    - run: echo "TODO"
-    # add image to kube!
+    - uses: ./.github/workflows/DeployImage.yml
+      with:
+        version_number: ${{ needs.bumpVersion.outputs.version }}
+    
