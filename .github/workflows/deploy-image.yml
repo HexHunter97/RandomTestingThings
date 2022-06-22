@@ -28,11 +28,3 @@ jobs:
       uses: ./.github/actions/deploy-image
       with:
         version: ${{ inputs.version }}
-
-  cleanup:
-    needs: deploy
-    name: Cleanup
-    runs-on: self-hosted
-    steps:
-    - name: Cleanup
-      uses: rtCamp/action-cleanup@master
