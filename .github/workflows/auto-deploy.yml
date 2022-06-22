@@ -1,0 +1,40 @@
+name: Auto Deploy
+
+on:
+  pull_request_target:
+    types:
+      - closed
+    branches:
+      - master
+
+jobs:
+  pull:
+    if: ${{ github.event.pull_request.merged == true }}
+    name: Pull repository
+    runs-on: self-hosted
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.4.2
+
+  build:
+    needs: pull
+    name: Build image
+    runs-on: self-hosted
+    steps:
+    - id: build
+      name: Build
+      uses: ./.github/actions/build-image
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      version: ${{ steps.build.outputs.version }}
+        
+  deploy:
+    needs: build
+    name: Deploy image
+    runs-on: self-hosted
+    steps:
+    - name: Deploy
+      uses: ./.github/actions/deploy-image
+      with:
+        version: ${{ needs.build.outputs.version }}

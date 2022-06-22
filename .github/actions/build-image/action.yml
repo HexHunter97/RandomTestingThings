@@ -1,0 +1,49 @@
+# flow:
+# - pull specified version
+# - generate version if not supplied and add version tag
+# - set version in appsettings.json
+# - build docker image
+
+name: Build Image
+description: "Builds a docker image"
+
+inputs:
+  version:
+    description: Image version tag
+    required: false
+  github_token:
+    description: GITHUB_TOKEN
+    required: true
+outputs:
+  version:
+    value: ${{ steps.bumpVersion.outputs.version }}
+    description: The calculated version
+
+runs:
+  using: composite
+  steps:
+  - id: bumpVersion
+    name: Bump version
+    uses: ./.github/actions/bump-version
+    with:
+      version: ${{ inputs.version }}
+      github_token: ${{ inputs.github_token }}
+  - name: Apply version to Client/appsettings.json
+    shell: bash
+    run: sed -ri 's/^  \"version\":.\"local\"/  \"version\":\"${{ steps.bumpVersion.outputs.version }}\"/' ArmaReforger.WorkshopBrowser/Client/wwwroot/appsettings.json
+  - name: Build image
+    shell: bash
+    run: docker build -f Dockerfile . -t workshopbrowser:${{ steps.bumpVersion.outputs.version }}
+  - name: Export image
+    shell: bash
+    run: docker save workshopbrowser:${{ steps.bumpVersion.outputs.version }} -o workshopbrowser.tar
+  - name: Import image
+    shell: bash
+    run: microk8s ctr image import workshopbrowser.tar
+  - if: ${{ always() }}
+    name: Cleanup
+    shell: bash
+    run: |
+      rm -f workshopbrowser.tar
+      docker image prune -f
+      docker rmi -f $(docker images workshopbrowser -q)

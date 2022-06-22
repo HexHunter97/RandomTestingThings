@@ -1,0 +1,40 @@
+name: Manual Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version number for the release
+        required: true
+
+jobs:
+  pull:
+    name: Pull repository
+    runs-on: self-hosted
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.4.2
+
+  build:
+    needs: pull
+    name: Build image
+    runs-on: self-hosted
+    steps:
+    - id: build
+      name: Build
+      uses: ./.github/actions/build-image
+      with:
+        version: ${{ inputs.version }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      version: ${{ steps.build.outputs.version }}
+        
+  deploy:
+    needs: build
+    name: Deploy image
+    runs-on: self-hosted
+    steps:
+    - name: Deploy
+      uses: ./.github/actions/deploy-image
+      with:
+        version: ${{ needs.build.outputs.version }}

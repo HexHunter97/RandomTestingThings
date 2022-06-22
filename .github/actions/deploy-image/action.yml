@@ -1,0 +1,15 @@
+name: Deploy image
+description: Deploys the image with the specified version tag
+
+inputs:
+  version:
+    description: Image version tag
+    required: true
+
+runs:
+  using: composite
+  steps:
+  - name: Echo version
+    shell: bash
+    run: echo ${{ inputs.version }}
+    # add image to kube!

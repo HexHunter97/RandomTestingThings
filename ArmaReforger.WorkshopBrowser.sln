@@ -1,4 +1,3 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
@@ -12,9 +11,31 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0089CB04-0223-4552-9353-CE5A4250D330}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
-		.github\workflows\Deploy.yml = .github\workflows\Deploy.yml
-		.github\workflows\DeployImage.yml = .github\workflows\DeployImage.yml
 		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{DD4438E1-1BF6-4B23-BF8F-7571E3D149FA}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\auto-deploy.yml = .github\workflows\auto-deploy.yml
+		.github\workflows\deploy-image.yml = .github\workflows\deploy-image.yml
+		.github\workflows\manual-deploy.yml = .github\workflows\manual-deploy.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{BE2C4BE2-D8F9-4823-B593-54EC2138024E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build-image", "build-image", "{5ECFFB14-876D-4585-B0E9-3ACE242E7974}"
+	ProjectSection(SolutionItems) = preProject
+		.github\actions\build-image\action.yml = .github\actions\build-image\action.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bump-version", "bump-version", "{2601B96E-EFB4-431F-8E72-B9C66F6DA80D}"
+	ProjectSection(SolutionItems) = preProject
+		.github\actions\bump-version\action.yml = .github\actions\bump-version\action.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "deploy-image", "deploy-image", "{082D09D4-F35C-4DCC-9916-B2B990BE1770}"
+	ProjectSection(SolutionItems) = preProject
+		.github\actions\deploy-image\action.yml = .github\actions\deploy-image\action.yml
 	EndProjectSection
 EndProject
 Global
@@ -38,6 +59,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DD4438E1-1BF6-4B23-BF8F-7571E3D149FA} = {0089CB04-0223-4552-9353-CE5A4250D330}
+		{BE2C4BE2-D8F9-4823-B593-54EC2138024E} = {0089CB04-0223-4552-9353-CE5A4250D330}
+		{5ECFFB14-876D-4585-B0E9-3ACE242E7974} = {BE2C4BE2-D8F9-4823-B593-54EC2138024E}
+		{2601B96E-EFB4-431F-8E72-B9C66F6DA80D} = {BE2C4BE2-D8F9-4823-B593-54EC2138024E}
+		{082D09D4-F35C-4DCC-9916-B2B990BE1770} = {BE2C4BE2-D8F9-4823-B593-54EC2138024E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19412CC6-CBE1-4F9E-A152-A93453CD8B23}
