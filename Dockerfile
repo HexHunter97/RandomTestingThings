@@ -21,7 +21,7 @@ RUN dotnet build -c Release -o /app
 
 RUN dotnet publish -c Release -o /app
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0-bullseye-slim as app
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-bullseye-slim AS app
 EXPOSE 80
 EXPOSE 433
 WORKDIR /app
