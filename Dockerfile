@@ -23,7 +23,7 @@ RUN dotnet publish -c Release -o /app
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-bullseye-slim AS app
 EXPOSE 80
-EXPOSE 433
+EXPOSE 443
 WORKDIR /app
 COPY --from=build /app .
 ENTRYPOINT ["dotnet", "ArmaReforger.WorkshopBrowser.Server.dll"]
