@@ -16,13 +16,13 @@ on:
 jobs:
   pull:
     if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2.4.2
     
   bumpVersion:
     needs: pull
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     - if: github.event.inputs.version_number != ''
       name: 'Manual version'
